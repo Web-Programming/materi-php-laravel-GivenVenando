@@ -1,17 +1,9 @@
 <?php
+use App\Http\Controllers\MateriController;
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MateriController;
-use App\Http\Controllers\ProdiController;
-use App\Http\Controllers\MhsApiController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/about', function () {
-    return view('welcome');
-});
+Route::get('/', [MateriController::class, 'index']);
 
 Route::get('/materi/index',action:[MateriController::class,'index']);
 
@@ -21,4 +13,8 @@ Route::resource('prodi',ProdiController::class,);
 
 Route::apiResource('api/mhs',MhsController::class);
 
+Route::get('/', [MateriController::class, 'index']);
 
+Route::get('/home', [MateriController::class, 'home']);
+
+Route::get('/about', [MateriController::class, 'about']);
