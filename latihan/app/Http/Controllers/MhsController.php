@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class MhsApi extends Controller
+class MhsController extends Controller
 {
     //
 }

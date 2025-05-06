@@ -2,6 +2,10 @@
 
 namespace Database\Seeders;
 
+
+use DB;
+use Hash;
+use Str;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,11 +17,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // Insert data user
+       DB::table('users')->insert([
+            'name' => Str::random(10),
+            'email' => Str::random(10).'@example.com',
+            'password' => Hash::make('password'),
         ]);
+
+        //insert data mahasiswa menggunakan query builder
+        DB::table('mahasiswa') ->insert(
+            [
+                'npm' => '2420250046',
+                'nama' =>'Nur Rachmat',
+                'tempat_lahir' => 'Paris',
+                'alamat' => 'Palembang',
+                'created_at' => date("y-m-d H:i:s")
+            ]
+        );
+
+        DB::table('mahasiswa')
+         ->where("npm", "2428250046")
+         ->update(["npm" => "200920066"]);
     }
 }
