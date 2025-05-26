@@ -1,11 +1,17 @@
 <?php
 
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\FakultasController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\DosenController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Middleware\CekLogin;
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -20,11 +26,11 @@ Route::get("/berita/{id}/{title?}", function($id, $title = NULL) {
 });
 
 
-Route::resource('materi', MateriController::class);
-Route::resource('prodi', ProdiController::class);
-Route::resource('fakultas', FakultasController::class);
-Route::resource('mhs', MahasiswaController::class);
-Route::resource('dosen', DosenController::class);
+// Route::resource('materi', MateriController::class);
+// Route::resource('prodi', ProdiController::class);
+// Route::resource('fakultas', FakultasController::class);
+// Route::resource('mhs', MahasiswaController::class);
+// Route::resource('dosen', DosenController::class);
 
 Route::get('/fakultas', [FakultasController::class, 'index'])->name('fakultas.index');
 Route::get('/fakultas/{id}/detail', [FakultasController::class, 'detail'])->name('fakultas.detail');
@@ -55,4 +61,31 @@ Route::get('/materi/{id}/detail', [MateriController::class, 'detail'])->name('ma
 Route::get('/materi/create', [MateriController::class, 'createForm'])->name('materi.create');
 Route::post('/materi/store', [MateriController::class, 'store'])->name('materi.store');
 Route::post('/materi/{id}/destroy', [MateriController::class, 'destroy'])->name('materi.destroy');
+
+//Authentication
+Route::get("/login", [AuthController::class, 'login'])->name('login');
+Route::post("/login", [AuthController::class, 'do_login']);
+Route::get("/register", [AuthController::class, 'register']);
+Route::post("/register", [AuthController::class, 'do_register']);
+Route::get("/logout", [AuthController::class, 'logout']);
+
+Route::middleware(['auth'])->group(function () {
+    
+    Route::group(['middleware' => [CekLogin::class.':admin']], function(){
+        Route::get("/admin", [AdminController::class, 'index']);
+        Route::resource('prodi', ProdiController::class);
+        Route::resource('fakultas', FakultasController::class);
+    });
+
+    Route::group(['middleware' => [CekLogin::class.':user']], function(){
+        Route::get("/user", [UserController::class, 'index']);
+    });
+     Route::middleware([CekLogin::class.':dosen'])->group(function () {
+        Route::resource('mahasiswa', MahasiswaController::class);
+        Route::resource('materi', MateriController::class);
+    });
+      Route::middleware([CekLogin::class.':mahasiswa'])->group(function () {
+        Route::resource('materi', MateriController::class);
+    });
+});
 
