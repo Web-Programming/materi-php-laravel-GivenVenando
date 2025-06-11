@@ -5,7 +5,7 @@
 @section('content')
 <main class="app-main" style="background-image: url('/img/kampus3.jpeg'); background-size: cover; background-repeat: no-repeat; background-position: center;">
     <div class="container">
-        <h1 class="mb-4 mt-3 text-light">Materi</h1>
+        <h1 class="mb-4 mt-3 text-light">Mahasiswa Universitas MDP</h1>
 
         @foreach($materi as $materi)
         <div class="row mb-5 fade-in">

@@ -81,6 +81,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get("/user", [UserController::class, 'index']);
     });
      Route::middleware([CekLogin::class.':dosen'])->group(function () {
+        Route::get("/user", [UserController::class, 'index']);
         Route::resource('mahasiswa', MahasiswaController::class);
         Route::resource('materi', MateriController::class);
     });
@@ -88,4 +89,3 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('materi', MateriController::class);
     });
 });
-

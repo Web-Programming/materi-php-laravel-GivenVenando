@@ -22,9 +22,6 @@ class CekLogin
             if(Auth::user()->level === $roles){
                 return $next($request);
             }
-              // User login tapi tidak punya hak akses
-            return abort(403, 'Anda tidak memiliki akses ke halaman ini.');
-
         }
 
         return redirect('login')->withErrors(['failed' => 'Anda tidak memiliki akses!']);

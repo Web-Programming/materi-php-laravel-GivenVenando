@@ -96,6 +96,7 @@ class ProdiController extends Controller
         ]
     ];
 
+
     return view('prodi.index', compact('prodi'));
 }
 
