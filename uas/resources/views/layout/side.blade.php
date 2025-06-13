@@ -1,104 +1,19 @@
-<!--begin::Sidebar-->
-<aside class="app-sidebar bg-body-secondary custom-sidebar" data-bs-theme="dark">
-  <style>
-    .custom-sidebar .sidebar-brand {
-      border-bottom: none !important;
-    }
-    .custom-sidebar .sidebar-wrapper {
-      border-top: none !important;
-    }
-  </style>
-
-  <!--begin::Sidebar Brand-->
-  <div class="sidebar-brand">
-    <a href="{{ route('home') }}" class="brand-link">
-      <img src="{{ asset('img/mdp3.png') }}" alt="Logo MDP" style="height: 60px;">
-      <span class="brand-text fw-light">Universitas MDP</span>
+<div class="col-md-3 col-lg-2 d-md-block bg-white sidebar pt-4 shadow-sm">
+  <div class="list-group list-group-flush">
+    <a href="/dashboard" class="list-group-item list-group-item-action {{(request()->is('dashboard')) ? 'active' : ''}}">
+      <i class="fas fa-home me-2"></i>Dashboard
+    </a>
+    <a href="#" class="list-group-item list-group-item-action">
+      <i class="fas fa-box me-2"></i>My Orders
+    </a>
+    <a href="#" class="list-group-item list-group-item-action">
+      <i class="fas fa-user me-2"></i>Profile
+    </a>
+    <a href="#" class="list-group-item list-group-item-action">
+      <i class="fas fa-cog me-2"></i>Settings
+    </a>
+    <a href="{{ route('login') }}" class="list-group-item list-group-item-action me-2">
+      <i class="nav-icon fas fa-power-off"></i>Logout
     </a>
   </div>
-  <!--end::Sidebar Brand-->
-
-  <!--begin::Sidebar Wrapper-->
-  <div class="sidebar-wrapper">
-    <nav class="mt-2">
-      <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
-
-        <li class="nav-item">
-          <a href="{{ route('home') }}" class="nav-link">
-            <i class="nav-icon bi bi-house-door-fill"></i>
-            <p>Home</p>
-          </a>
-        </li>
-
-        @php
-          $level = strtolower(Auth::user()->level);
-        @endphp
-
-        @if($level === 'admin')
-          <li class="nav-item">
-            <a href="{{ route('admin.fakultas.index') }}" class="nav-link">
-              <i class="nav-icon bi bi-building"></i>
-              <p>Fakultas</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('admin.prodi.index') }}" class="nav-link">
-              <i class="nav-icon bi bi-book"></i>
-              <p>Program Studi</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('admin.dosen.index') }}" class="nav-link">
-              <i class="nav-icon bi bi-person-badge"></i>
-              <p>Dosen</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('admin.materi.index') }}" class="nav-link">
-              <i class="nav-icon bi bi-journal-text"></i>
-              <p>Materi</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('admin.mahasiswa.index') }}" class="nav-link">
-              <i class="nav-icon bi bi-people"></i>
-              <p>Mahasiswa</p>
-            </a>
-          </li>
-
-        @elseif($level === 'dosen')
-          <li class="nav-item">
-            <a href="{{ route('dosen.materi.index') }}" class="nav-link">
-              <i class="nav-icon bi bi-journal-text"></i>
-              <p>Materi</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('dosen.mahasiswa.index') }}" class="nav-link">
-              <i class="nav-icon bi bi-people"></i>
-              <p>Mahasiswa</p>
-            </a>
-          </li>
-
-        @elseif($level === 'mahasiswa')
-          <li class="nav-item">
-            <a href="{{ route('mhs.materi.index') }}" class="nav-link">
-              <i class="nav-icon bi bi-journal-text"></i>
-              <p>Materi</p>
-            </a>
-          </li>
-
-        @elseif($level === 'user')
-          <li class="nav-item">
-            <a href="{{ route('home') }}" class="nav-link">
-              <i class="nav-icon bi bi-info-circle"></i>
-              <p>Informasi</p>
-            </a>
-          </li>
-        @endif
-      </ul>
-    </nav>
-  </div>
-  <!--end::Sidebar Wrapper-->
-</aside>
-<!--end::Sidebar-->
+</div>

@@ -1,82 +1,90 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Akun</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
-<body class="bg-light d-flex align-items-center" style="height: 100vh;">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-5">
-                <div class="card shadow">
-                    <div class="card-body">
-                        <h3 class="mb-4 text-center text-primary">Buat Akun Baru</h3>
+<body>
 
-                        
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <strong>kesalahan:</strong>
-                                <ul class="mb-0">
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
+<section class="vh-100" style="background-color: #eee;">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <div class="card text-black" style="border-radius: 25px;">
+          <div class="card-body p-md-5">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                        <form method="POST" action="{{ route('register') }}">
-                            @csrf
+                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
 
-                            
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Nama Lengkap</label>
-                                <input type="text" class="form-control" name="name" id="name"
-                                    placeholder="Masukkan nama lengkap" value="{{ old('name') }}" required>
-                            </div>
+                <form class="mx-1 mx-md-4" action="{{ route('register') }}" method="POST">
+                    @csrf
 
-                            
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Alamat Email</label>
-                                <input type="email" class="form-control" name="email" id="email"
-                                    placeholder="masukan Gmail" value="{{ old('email') }}" required>
-                            </div>
-
-                            
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Kata Sandi</label>
-                                <input type="password" class="form-control" name="password" id="password"
-                                    placeholder="Minimal 8 karakter" required>
-                            </div>
-
-                            
-                            <div class="mb-3">
-                                <label for="level" class="form-label">Level</label>
-                                <select name="level" id="level" class="form-control" required>
-                                    <option value="">-- Pilih Level --</option>
-                                    <option value="user" {{ old('level') == 'user' ? 'selected' : '' }}>User</option>
-                                    <option value="mahasiswa" {{ old('level') == 'mahasiswa' ? 'selected' : '' }}>Mahasiswa</option>
-                                    <option value="dosen" {{ old('level') == 'dosen' ? 'selected' : '' }}>Dosen</option>
-                                    <option value="admin" {{ old('level') == 'admin' ? 'selected' : '' }}>Admin</option>
-                                </select>
-                            </div>
-
-                        
-                            <button type="submit" class="btn btn-primary w-100">Daftar Sekarang</button>
-                        </form>
-
-                        
-                        <p class="text-center mt-3 mb-0">
-                            Sudah punya akun?
-                            <a href="{{ route('login') }}" class="text-decoration-none">Masuk di sini</a>
-                        </p>
+                    <!-- Name -->
+                    <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                        <input type="text" id="formName" name="name" class="form-control" required />
+                        <label class="form-label" for="formName">Your Name</label>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+                    <!-- Email -->
+                    <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                        <input type="email" id="formEmail" name="email" class="form-control" required />
+                        <label class="form-label" for="formEmail">Your Email</label>
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                        <input type="password" id="formPassword" name="password" class="form-control" required />
+                        <label class="form-label" for="formPassword">Password</label>
+                        </div>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="d-flex flex-row align-items-center mb-4">
+                        <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                        <div class="form-outline flex-fill mb-0">
+                        <input type="password" id="formRepeatPassword" name="password_confirmation" class="form-control" required />
+                        <label class="form-label" for="formRepeatPassword">Repeat your password</label>
+                        </div>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                        <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                    </div>
+                </form>
+
+
+              </div>
+              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                  class="img-fluid" alt="Sample image">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

@@ -2,94 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    // Tampilkan form login
-    public function showLogin()
+    public function proseslogin(Request $request)
     {
-        return view('auth.login');
+        $request->validate([
+            'email' => 'required|email|max:50',
+            'password' => 'required|min:5',
+        ]);
+        if(Auth::attempt($request->only('email', 'password'))) {
+            return redirect()->route('dashboard');
+        }
+        return back()->with('error','Email atau Password Salah');
     }
-
-    // Proses login
-  public function do_login(Request $request)
-{
-    $credentials = $request->validate([
-        'email' => 'required|email',
-        'password' => 'required',
-    ]);
-
-    if (Auth::attempt($credentials)) {
-        $request->session()->regenerate();
-
-        $user = Auth::user();
-
-      
-$user = Auth::user();
-
-switch ($user->level) {
-    case 'admin':
-        return redirect()->route('admin.home');
-    case 'user':
-        return redirect()->route('user.home');
-    default:
-        Auth::logout();
-        return redirect()->route('login')->withErrors(['email' => 'Level akses tidak dikenali.']);
-}
-
-
-    }
-
-    return back()->withErrors([
-        'email' => 'Email atau password salah',
-    ])->withInput();
-}
-
-
-    // Tampilkan form register
+    
     public function showRegister()
     {
         return view('auth.register');
     }
 
-    // Proses register
-    public function do_register(Request $request)
-{
-    $validator = Validator::make($request->all(), [
-        'name' => 'required|string|max:255',
-        'email' => 'required|email|unique:users,email',
-        'password' => 'required|min:8',
-        'level' => 'required|in:user,mahasiswa,dosen,admin',
-    ]);
-
-    if ($validator->fails()) {
-        return redirect("register")
-            ->withErrors($validator)
-            ->withInput();
-    }
-
-    $user = new User();
-    $user->name = $request->name;
-    $user->email = $request->email;
-    $user->password = Hash::make($request->password);
-    $user->level = $request->level; 
-
-    $user->save();
-
-    return redirect('login')->with('success', 'Registrasi berhasil, silakan login.');
-}
-
-    public function logout(Request $request)
+    public function register(Request $request)
     {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect('/login')->with('success', 'Berhasil logout.');
+        dd($request->all());
     }
 }
