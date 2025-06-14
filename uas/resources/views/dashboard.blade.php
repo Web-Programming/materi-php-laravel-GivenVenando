@@ -208,5 +208,22 @@
         </div>
       </div>
     </div>
+    @foreach($menus as $menu)
+  <div class="col-md-4 mb-4">
+    <div class="card product-card shadow-sm">
+      <img src="{{ $menu->image_url }}" class="card-img-top" alt="{{ $menu->name }}">
+      <div class="card-body">
+        <h5 class="card-title">{{ $menu->name }}</h5>
+        <p class="card-text">{{ $menu->description }}</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <span class="fw-bold text-danger">Rp {{ number_format($menu->price, 0, ',', '.') }}</span>
+          <button class="btn btn-sm btn-danger"><i class="fas fa-cart-plus"></i> Order</button>
+        </div>
+      </div>
+    </div>
   </div>
+@endforeach
+    
+  </div>
+
 @endsection

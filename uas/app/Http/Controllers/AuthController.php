@@ -17,6 +17,7 @@ class AuthController extends Controller
             'password' => 'required|min:5',
         ]);
         if(Auth::attempt($request->only('email', 'password'))) {
+            if(Auth::user()->role == 'customer') return redirect('/customer');
             return redirect()->route('dashboard');
         }
         return back()->with('error','Email atau Password Salah');
@@ -29,6 +30,23 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:225',
+            'email' => 'required|string|email|max:225|unique:users',
+            'password' => 'required|string|min:6',
+            'password-confirm' => 'required|string|min:6|same:password',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+        Auth::login($user);
+        return redirect()->route('dashboard')->with('success', 'Akun berhasil dibuat');
     }
 }
