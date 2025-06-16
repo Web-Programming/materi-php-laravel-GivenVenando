@@ -11,16 +11,47 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
   <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
     body {
-      background: #f7f7f7;
+      background: url('https://richeesefactory.com/media/thumb/banner/2025/6/2/gxuakdwdafnhq73qfnz5sq_size_1920x700_webp.webp') no-repeat center center fixed;
+      background-size: cover;
     }
     .login-container {
-      margin-top: 80px;
-      background: #fff;
-      padding: 40px;
-      border-radius: 15px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    }
+  position: relative;
+   background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(px); /* ini bikin efek kaca buram */
+  background: url('https://richeesefactory.com/media/thumb/banner/2025/4/10/cafnyqdvxc8psxkb6bej3r_size_1920x700_webp.webp') no-repeat center center fixed;
+  background-size: cover;
+  margin-top: 80px;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+    .login-container::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(255, 255, 255, 0.8); /* lapisan putih transparan */
+  z-index: 0;
+  border-radius: 15px;
+}
+
+/* Pastikan isi di atas overlay */
+.login-container form,
+.login-container h3,
+.login-container label,
+.login-container .form-text {
+  position: relative;
+  z-index: 2;
+  color: #000; /* pastikan teks tetap gelap */
+}
     .social-icon i {
       font-size: 1.5rem;
       color: #0d6efd;

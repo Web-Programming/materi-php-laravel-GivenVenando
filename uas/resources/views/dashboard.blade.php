@@ -208,7 +208,7 @@
         </div>
       </div>
     </div>
-    @foreach($menus as $menu)
+@foreach($menus as $menu)
   <div class="col-md-4 mb-4">
     <div class="card product-card shadow-sm">
       <img src="{{ $menu->image_url }}" class="card-img-top" alt="{{ $menu->name }}">
@@ -219,10 +219,14 @@
           <span class="fw-bold text-danger">Rp {{ number_format($menu->price, 0, ',', '.') }}</span>
           <button class="btn btn-sm btn-danger"><i class="fas fa-cart-plus"></i> Order</button>
         </div>
+        <a href="{{ route('struk.detail', ['menu' => Str::slug($menu->name)]) }}" class="btn btn-sm btn-outline-primary mt-2">
+          Lihat Struk
+        </a>
       </div>
     </div>
   </div>
 @endforeach
+
     
   </div>
 
